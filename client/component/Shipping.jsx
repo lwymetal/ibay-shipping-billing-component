@@ -39,14 +39,14 @@ class Shipping extends React.Component {
   handleDefault() {
     axios({
       method: 'get',
-      url: 'http://ec2-54-241-153-94.us-west-1.compute.amazonaws.com:8565/api/shipping',
+      url: 'http://localhost:8565/api/shipping',
       params: {
         country: this.state.defaultCountry,
         zipcode: '08561'
       }
     })
     .then(({ data }) => {
-      console.log(data);
+      console.log('Data loaded');
 
       this.setState({
         basicRate: data.basic_rate,
@@ -59,12 +59,64 @@ class Shipping extends React.Component {
     });
   }
 
+  postTest() {
+    axios({
+      method: 'post',
+      url: 'http://localhost:8565/api/add',
+      params: {
+        country: "A test country 0",
+        basic_rate: 5.00,
+        expedited_rate: 10.00,
+        one_day_rate: 15.00
+      }
+    })
+    .then(result => {
+      console.log('Post successful');
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
+  putTest() {
+    axios({
+      method: 'put',
+      url: 'http://localhost:8565/api/update',
+      params: {
+        country: "A test country 2",
+        basic_rate: 5.00
+      }
+    })
+    .then(result => {
+      console.log('Put successful');
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
+  deleteTest() {
+    axios({
+      method: 'delete',
+      url: 'http://localhost:8565/api/delete',
+      params: {
+        country: "A test country 1"
+      }
+    })
+    .then(result => {
+      console.log('Delete successful');
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     if (this.state.selectedCountry) {
       axios({
         method: 'get',
-        url: 'http://ec2-54-241-153-94.us-west-1.compute.amazonaws.com:8565/api/shipping',
+        url: 'http://localhost:8565/api/shipping',
         params: {
           country: this.state.selectedCountry,
           zipcode: this.state.zipcode
@@ -185,19 +237,19 @@ class Shipping extends React.Component {
               <tbody>
                 <tr>
                   <td>{`US $${this.state.basicRate}`}</td>
-                  <td>free</td>
+                  <td>Free</td>
                   <td>{this.state.defaultCountry}</td>
                   <td>Standard Shipping</td>
                 </tr>
                 <tr>
                   <td>{`US $${this.state.expeditedRate}`}</td>
-                  <td>3</td>
+                  <td>$3.00</td>
                   <td>{this.state.defaultCountry}</td>
                   <td>Expedited Shipping</td>
                 </tr>
                 <tr>
                   <td>{`US $${this.state.oneDayRate}`}</td>
-                  <td>5</td>
+                  <td>$5.00</td>
                   <td>{this.state.defaultCountry}</td>
                   <td>{`One-day Shipping`}</td>
                 </tr>
@@ -212,7 +264,10 @@ class Shipping extends React.Component {
                 include seller's handling time, origin ZIP Code, destination ZIP Code
                 and time of acceptance and will depend on shipping service selected and receipt of
                 {' '}<a href="https://pages.ebay.com/help/buy/contextual/domestic-handling-time.html">cleared payment</a>.{' '}
-                Delivery times may vary, especially during peak periods.
+                Delivery times may vary, especially during peak periods.  
+                <button className="testButton" onClick={this.postTest.bind(this)} />&nbsp;&nbsp;    
+                <button className="testButton" onClick={this.putTest.bind(this)} />&nbsp;&nbsp;  
+                <button className="testButton" onClick={this.deleteTest.bind(this)} />
             </div>
           </div>
         </div>

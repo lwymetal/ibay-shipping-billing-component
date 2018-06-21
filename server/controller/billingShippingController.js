@@ -1,4 +1,5 @@
 const { BillingRate } = require('../../db/schema/billingSchema');
+const sequelize = require('sequelize');
 
 const requestPromise = require('request-promise');
 
@@ -81,9 +82,42 @@ const billingShippingCtrl = {
     }
   },
   post: function(req, res) {
-    console.log('testing post');
-    res.send('posted');
-  }
+    BillingRate.create(
+      {country: req.query.country, 
+       basic_rate: req.query.basic_rate, 
+       expedited_rate: req.query.expedited_rate, 
+       one_day_rate: req.query.one_day_rate
+    })
+    .then(results => {
+      console.log('Post successful');
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  },
+  put: function(req, res) {
+    BillingRate.update(
+      {basic_rate: 5.00},
+      {where: {country: req.query.country}
+    })
+    .then(results => {
+      console.log('Put successful');
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  },
+  delete: function(req, res) {
+    BillingRate.destroy(
+      {where: {country: req.query.country}
+      })
+      .then(results => {
+        console.log('Delete successful');
+      })
+      .catch(err => {
+        console.log(err);
+    });
+  },
 }
 
 module.exports = {

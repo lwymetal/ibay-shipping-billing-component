@@ -4,7 +4,7 @@ const { db } = require('../config');
 
 const { seeds } = require('../sql/seed');
 
-const BillingRate = db.define('billing_rate', {
+const BillingRate = db.define('billing_rates', {
   country: Sequelize.STRING,
   basic_rate: Sequelize.DECIMAL(10, 2),
   expedited_rate: Sequelize.DECIMAL(10, 2),

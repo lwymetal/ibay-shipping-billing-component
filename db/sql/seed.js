@@ -1,4 +1,6 @@
 const seeds = [
+  { country: "A test country 1",	basic_rate: 20.00,	expedited_rate: 23.00,	one_day_rate: 26.00 },
+  { country: "A test country 2",	basic_rate: 20.00,	expedited_rate: 23.00,	one_day_rate: 26.00 },
   { country: "Afghanistan",	basic_rate: 20.00,	expedited_rate: 23.00,	one_day_rate: 26.00 },
   { country: "Albania",	basic_rate: 20.00,	expedited_rate: 23.00,	one_day_rate: 26.00 },
   { country: "Algeria",	basic_rate: 20.00,	expedited_rate: 23.00,	one_day_rate: 26.00 },

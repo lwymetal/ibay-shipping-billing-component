@@ -52,6 +52,12 @@ Text/Paragraphs:
   padding-bottom: 10px;
 }
 
+:local(.testButton) {
+  height: 10px;
+  width: 15px;
+  opacity: 0;
+}
+
 /**********
 Tables:
 **********/
