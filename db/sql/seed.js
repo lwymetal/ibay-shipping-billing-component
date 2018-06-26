@@ -6,7 +6,7 @@ const seeds = [
   { country: "Algeria",	basic_rate: 20.00,	expedited_rate: 23.00,	one_day_rate: 26.00 },
   { country: "Andorra",	basic_rate: 20.00,	expedited_rate: 23.00,	one_day_rate: 26.00 },
   { country: "Angola",	basic_rate: 20.00,	expedited_rate: 23.00,	one_day_rate: 26.00 },
-  { country: "Antigua and Barbud",	basic_rate: 20.00,	expedited_rate: 23.00,	one_day_rate: 26.00 },
+  { country: "Antigua and Barbuda",	basic_rate: 20.00,	expedited_rate: 23.00,	one_day_rate: 26.00 },
   { country: "Argentina",	basic_rate: 15.00,	expedited_rate: 18.00,	one_day_rate: 21.00 },
   { country: "Armenia",	basic_rate: 20.00,	expedited_rate: 23.00,	one_day_rate: 26.00 },
   { country: "Australia",	basic_rate: 15.00,	expedited_rate: 18.00,	one_day_rate: 21.00 },
