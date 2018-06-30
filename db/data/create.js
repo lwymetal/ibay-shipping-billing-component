@@ -1,5 +1,5 @@
 const fs = require('fs');
-const db = require('../config');
+const db = require('../');
 const stream = fs.createWriteStream(__dirname + '/rates.csv');
 const { seeds } = require('../data/seed');
 
@@ -12,7 +12,7 @@ var makeCode = function() {
 var sprout = function() {
   var garden = '';
   seeds.forEach(function(seed) { 
-    for (var i = 0; i < 500; i++) {
+    for (var i = 0; i < 500; i++) { // 500
       for (var key in seed) {
         garden += (seed[key] + ',');
       }
@@ -22,18 +22,19 @@ var sprout = function() {
   return garden;
 }
 
-for (var i = 0; i < 104; i++) {  
+for (var i = 0; i < 104; i++) {  // 104
   console.log(i);
   stream.write(sprout());
 }
 stream.end();
 
-var populate = `load data infile "../../../../Users/salamander/Github/sdc-capstone/mysql/db/data/rates.csv" into table rates fields terminated by ","`;
+// fix this 
+// var populate = `load data infile "../../../../Users/salamander/Github/sdc-capstone/mysql/db/data/rates.csv" into table rates fields terminated by ","`;
 
-db.query(populate, (err, results) => {
-  results ? console.log('populate done') : console.log(err);
-});
+// db.query(populate, (err, results) => {
+//   results ? console.log('populate done') : console.log(err);
+// });
 
-db.query('create table cities select city_code, country from rates', (err, results) => {
-  results ? console.log('create cities done') : console.log(err);
-});
+// db.query('create table cities select city_code, country from rates', (err, results) => {
+//   results ? console.log('create cities done') : console.log(err);
+// });

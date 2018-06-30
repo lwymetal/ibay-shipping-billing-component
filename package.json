@@ -1,21 +1,18 @@
 {
   "name": "FrontEndCapstone",
   "version": "1.0.0",
-  "description": "",
   "main": "webpack.config.js",
   "dependencies": {
-    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
-    "cli": "^1.0.1",
     "cors": "^2.8.4",
+    "css-loader": "^0.28.11",
     "express": "^4.16.3",
     "helmet": "^3.12.1",
-    "mysql2": "^1.5.3",
-    "pg": "^7.4.3",
-    "pg-hstore": "^2.3.2",
+    "mongoose": "^5.1.7",
+    "mysql": "^2.15.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "sequelize": "^4.37.10"
+    "style-loader": "^0.21.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -24,27 +21,11 @@
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "css-loader": "^0.28.11",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
-    "enzyme-to-json": "^3.3.4",
-    "file-loader": "^1.1.11",
-    "grunt": "^1.0.3",
-    "grunt-aws": "^0.6.2",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "^23.1.0",
     "nodemon": "^1.17.5",
-    "react-test-renderer": "^16.4.0",
-    "request-promise": "^4.2.2",
-    "sinon": "^5.1.0",
-    "style-loader": "^0.21.0",
     "webpack": "^4.11.1",
     "webpack-cli": "^2.1.5"
   },
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watchAll",
-    "test:coverage": "jest --coverage",
     "start": "nodemon server",
     "build": "webpack -w",
     "build:db": "nodemon db/config"
@@ -52,19 +33,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "jest": {
-    "notify": true,
-    "verbose": true,
-    "collectCoverage": true,
-    "setupFiles": [
-      "./setupTests.js"
-    ],
-    "addSnapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
-    }
-  }
+  "description": ""
 }

@@ -4,7 +4,7 @@ const parser = require('body-parser');
 const helmet = require('helmet');
 const cors = require('cors');
 const app = express();
-const db = require('../db/config');
+const db = require('../db');
 const router = require('./router');
 
 app.use(helmet());
