@@ -7,7 +7,7 @@ const cors = require('cors');
 const app = express();
 app.use(helmet());
 
-const PORT = 8565;
+const PORT = 3000;
 
 const { router } = require('./router');
 

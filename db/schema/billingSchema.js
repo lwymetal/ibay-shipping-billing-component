@@ -27,7 +27,7 @@ var makeCode = function() {
 var sprout = function() {
   var garden = '';
   seeds.forEach(function(seed) { 
-    for (var i = 0; i < 50; i++) {  // 500
+    for (var i = 0; i < 500; i++) {  // 500
       for (var key in seed) {
         garden += (seed[key] + ',');
       }
@@ -41,7 +41,7 @@ for (var i = 0; i < 10; i++) {  // 104
   console.log(i);
   stream.write(sprout());
 }
-stream.end(); 
+stream.end();
 
 BillingRate.sync({force: true})
   .then(() => {
@@ -51,6 +51,15 @@ BillingRate.sync({force: true})
   .catch(err => {
     console.log('Error connecting to database', err);
   });
+
+
+db.query(`\copy billing_rates(country, basic_rate, expedited_rate, one_day_rate, city_code) from '/Users/salamander/Github/sdc-capstone/shipping-billing-component/db/schema/billing.csv' with csv;`, { type:Sequelize.QueryTypes.UPSERT})
+  .then(() => {
+    console.log('did');
+  })
+  .catch(() => {
+    console.log('didn\'t');
+  })
 
 module.exports = {
   BillingRate: BillingRate

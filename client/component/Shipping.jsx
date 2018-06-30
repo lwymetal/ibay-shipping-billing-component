@@ -39,7 +39,7 @@ class Shipping extends React.Component {
   handleDefault() {
     axios({
       method: 'get',
-      url: 'http://localhost:8565/api/shipping',
+      url: 'http://localhost:3000/api/shipping',
       params: {
         country: this.state.defaultCountry,
         zipcode: '08561'
@@ -62,7 +62,7 @@ class Shipping extends React.Component {
   postTest() {
     axios({
       method: 'post',
-      url: 'http://localhost:8565/api/add',
+      url: 'http://localhost:3000/api/add',
       params: {
         country: "A test country 0",
         basic_rate: 5.00,
@@ -81,7 +81,7 @@ class Shipping extends React.Component {
   putTest() {
     axios({
       method: 'put',
-      url: 'http://localhost:8565/api/update',
+      url: 'http://localhost:3000/api/update',
       params: {
         country: "A test country 2",
         basic_rate: 5.00
@@ -98,7 +98,7 @@ class Shipping extends React.Component {
   deleteTest() {
     axios({
       method: 'delete',
-      url: 'http://localhost:8565/api/delete',
+      url: 'http://localhost:3000/api/delete',
       params: {
         country: "A test country 1"
       }
@@ -116,7 +116,7 @@ class Shipping extends React.Component {
     if (this.state.selectedCountry) {
       axios({
         method: 'get',
-        url: 'http://localhost:8565/api/shipping',
+        url: 'http://localhost:3000/api/shipping',
         params: {
           country: this.state.selectedCountry,
           zipcode: this.state.zipcode
