@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import { seeds } from '../../db/sql/seed';
+import { seeds } from '../../db/data/seed';
 
 import styles from './Shipping.css';
 
@@ -46,12 +46,10 @@ class Shipping extends React.Component {
       }
     })
     .then(({ data }) => {
-      console.log('Data loaded');
-
       this.setState({
-        basicRate: data.basic_rate,
-        expeditedRate: data.expedited_rate,
-        oneDayRate: data.one_day_rate
+        basicRate: data.basic_rate + '.00',
+        expeditedRate: data.expedited_rate + '.00',
+        oneDayRate: data.one_day_rate + '.00'
       });
     })
     .catch(err => {
@@ -111,7 +109,7 @@ class Shipping extends React.Component {
     })
   }
 
-  handleSubmit(event) {
+  handleSubmit() {
     event.preventDefault();
     if (this.state.selectedCountry) {
       axios({
@@ -124,14 +122,13 @@ class Shipping extends React.Component {
       })
       .then(({ data }) => {
         this.setState({
-          defaultCountry: data.country,
-          basicRate: data.basic_rate,
-          expeditedRate: data.expedited_rate,
-          oneDayRate: data.one_day_rate
+          basicRate: data.basic_rate + '.00',
+          expeditedRate: data.expedited_rate + '.00',
+          oneDayRate: data.one_day_rate + '.00'
         });
       })
       .catch(err => {
-        console.log('error fetching from client');
+        console.log('error fetching from client', err);
       });
     }
   }
@@ -144,7 +141,6 @@ class Shipping extends React.Component {
 
   handleZipCodeInput(event) {
     event.preventDefault();
-
     this.setState({
       zipcode: event.target.value
     });
@@ -179,7 +175,6 @@ class Shipping extends React.Component {
     } else {
       getZip = null;
     }
-
     return(
       <div>
         <div className={styles['shipping-outside-border']}>
@@ -216,6 +211,7 @@ class Shipping extends React.Component {
                 getZip ?
                   <input
                     type="number"
+                    max="99999"
                     onChange={this.handleZipCodeInput}
                     required
                   ></input> : null

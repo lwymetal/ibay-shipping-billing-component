@@ -1,20 +1,17 @@
-const Sequelize = require('sequelize');
+var mysql = require('mysql');
 
-const db = new Sequelize({
-  database: 'postgresdb',
-  username: 'salamander',
-  password: 'postgres',
-  dialect: 'postgres'
+var connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  database: "ibay",
+  timeout: 6000000
 });
 
-db.authenticate()
-  .then(() => {
-    console.log('connected to database');
-  })
-  .catch(err => {
-    console.log('unable to connect to database ', err);
-  })
+connection.connect(function(err) {
+  if (err) {
+    throw err;
+  }
+  console.log("Connected to DB");
+});
 
-module.exports = {
-  db: db
-};
+module.exports = connection;

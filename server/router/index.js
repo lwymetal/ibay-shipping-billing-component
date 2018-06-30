@@ -1,19 +1,11 @@
 const router = require('express').Router();
 
-const { billingShippingCtrl } = require('../controller/billingShippingController');
+const Controller = require('../Controller');
 
-router.route('/shipping')
-  .get(billingShippingCtrl.get)
+router.get('/shipping', Controller.get);
+router.post('/create', Controller.post);
+router.put('/update', Controller.put);
+router.delete('/delete', Controller.delete);
+// router.get('/count', Controller.count);
 
-router.route('/add')
-  .post(billingShippingCtrl.post)
-
-router.route('/update')
-  .put(billingShippingCtrl.put)
-
-router.route('/delete')
-  .delete(billingShippingCtrl.delete);
-
-module.exports = {
-  router: router
-};
+module.exports = router;
