@@ -1,7 +1,8 @@
 const fs = require('fs');
-const db = require('../');
+const db = require('mongoose');
 const stream = fs.createWriteStream(__dirname + '/rates.csv');
 const { seeds } = require('../data/seed');
+const exec = require('child_process').exec;
 
 var makeCode = function() {
   var num = Math.floor(Math.random() * 1000000000000);
@@ -12,7 +13,7 @@ var makeCode = function() {
 var sprout = function() {
   var garden = '';
   seeds.forEach(function(seed) { 
-    for (var i = 0; i < 500; i++) { // 500
+    for (var i = 0; i < 500; i++) {
       for (var key in seed) {
         garden += (seed[key] + ',');
       }
@@ -22,19 +23,20 @@ var sprout = function() {
   return garden;
 }
 
-for (var i = 0; i < 104; i++) {  // 104
+for (var i = 0; i < 104; i++) { 
   console.log(i);
   stream.write(sprout());
 }
 stream.end();
 
-// fix this 
-// var populate = `load data infile "../../../../Users/salamander/Github/sdc-capstone/mysql/db/data/rates.csv" into table rates fields terminated by ","`;
+exec('mongoimport -d ibay -c rates --file db/data/rates.csv --type=csv -f country,basic_rate,expedited_rate,one_day_rate,city_code', (err, stdout, stderr) => {
+   err ? console.error(`Exec error: ${err}`) : console.log(`Data import successful`);
+});
 
-// db.query(populate, (err, results) => {
-//   results ? console.log('populate done') : console.log(err);
-// });
+exec('mongo ibay --eval \'db.rates.aggregate([{$project: { _id : 0, basic_rate: 0, expedited_rate: 0, one_day_rate:0}}, {$out: \"asdf\"}])\'', (err, stdout, stderr) => {
+  err ? console.error(`Exec error: ${err}`) : console.log(`Aggregate successful`);
+});
 
-// db.query('create table cities select city_code, country from rates', (err, results) => {
-//   results ? console.log('create cities done') : console.log(err);
-// });
+exec('mongo ibay --eval \'db.rates.update({}, {"$unset": {"country": 1}}, false, true)\'', (err, stdout, stderr) => {
+  err ? console.error(`Exec error: ${err}`) : console.log(`Trim successful`);
+});
