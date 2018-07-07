@@ -4,7 +4,6 @@ const Controller = {
 
   get: (req, res) => {
     Models.get(req.query, (err, results) => {
-      console.log('req url ', req.url);
       if (err) {
         console.log('error', err);
       } else {

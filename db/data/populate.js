@@ -10,3 +10,7 @@ db.query(populate, (err, results) => {
   endScript = new Date(); 
   console.log('DB populated in ' + ((endScript - startScript) / 1000) + ' seconds');
 })
+
+db.query(`create index codes on rates (city_code)`, (err, results) => {
+  err ? console.log(err) : console.log('DB indexed');
+})

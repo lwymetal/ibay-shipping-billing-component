@@ -27,6 +27,18 @@ Forms:
   font-weight: 600;
 }
 
+input[type=citycode]{
+  width: 100px;
+} 
+
+input[type=number]{
+  width: 80px;
+} 
+
+input[type=qty]{
+  width: 30px;
+}
+
 /**********
 Text/Paragraphs:
 **********/

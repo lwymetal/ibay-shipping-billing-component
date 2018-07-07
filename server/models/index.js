@@ -3,8 +3,12 @@ const db = require('../../db/config');
 const Models = {
 
   get: function(params, cb) {
-    var rCode;
-    db.query(`select * from rates where city_code="${params.city_code}"`, (err, results) => {
+    db.query(`select * from rates where city_code="${params.citycode}"`, (err, results) => {
+      if (params.country === 'United States of America') {
+        +params.zipcode > 79999 ? (results[0].basic_rate += 2, results[0].expedited_rate += 3, results[0].one_day_rate += 4) :
+          +params.zipcode > 49999 ? (results[0].basic_rate += 1, results[0].expedited_rate += 2, results[0].one_day_rate += 3) :
+            {};
+      }
       err ? console.log(err) : cb(null, results[0]);
     })
   },

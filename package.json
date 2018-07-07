@@ -1,7 +1,7 @@
 {
   "name": "FrontEndCapstone",
   "version": "1.0.0",
-  "description": "",
+  "description": "This component will render and recreate the shipping billing view of eBay",
   "main": "webpack.config.js",
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -34,5 +34,16 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lwymetal/ibay-shipping-billing-component.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lwymetal/ibay-shipping-billing-component/issues"
+  },
+  "homepage": "https://github.com/lwymetal/ibay-shipping-billing-component#readme"
 }

@@ -15,6 +15,7 @@ class Shipping extends React.Component {
     const countries = seeds.map(item => item.country);
 
     this.state = {
+      citycode: '',
       defaultCountry: 'United States of America',
       selectedCountry: 'United States of America',
       countries: [...countries],
@@ -28,6 +29,7 @@ class Shipping extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleZipCodeInput = this.handleZipCodeInput.bind(this);
+    this.handleCityCodeInput = this.handleCityCodeInput.bind(this);
     // not implemented yet the auction page isn't implenting this on the page:
     // this.handleChangeInQty = this.handleChangeInQty.bind(this);
   }
@@ -42,7 +44,8 @@ class Shipping extends React.Component {
       url: 'http://localhost:3000/api/shipping',
       params: {
         country: this.state.defaultCountry,
-        zipcode: '08561'
+        zipcode: '08561',
+        citycode: '629656974777'
       }
     })
     .then(({ data }) => {
@@ -53,7 +56,7 @@ class Shipping extends React.Component {
       });
     })
     .catch(err => {
-      console.log('error fetching from client');
+      console.log('Error fetching from client');
     });
   }
 
@@ -117,7 +120,8 @@ class Shipping extends React.Component {
         url: 'http://localhost:3000/api/shipping',
         params: {
           country: this.state.selectedCountry,
-          zipcode: this.state.zipcode
+          zipcode: this.state.zipcode,
+          citycode: this.state.citycode
         }
       })
       .then(({ data }) => {
@@ -128,7 +132,7 @@ class Shipping extends React.Component {
         });
       })
       .catch(err => {
-        console.log('error fetching from client', err);
+        console.log('Error fetching from DB', err);
       });
     }
   }
@@ -137,6 +141,13 @@ class Shipping extends React.Component {
     this.setState({
       selectedCountry: event.target.value
     }, () => console.log(this.state.selectedCountry));
+  }
+
+  handleCityCodeInput(event) {
+    event.preventDefault();
+    this.setState({
+      citycode: event.target.value
+    });
   }
 
   handleZipCodeInput(event) {
@@ -190,9 +201,10 @@ class Shipping extends React.Component {
           >
             <label>{ "Quantity: "}</label>
             <input
+              type="qty"
               onChange={this.handleChangeInQty}
-              type="number" min="1"
-            ></input>{" "}
+              default="1" width="30px"
+            ></input>{"  "}
             <label>
               { "Change Country: " }
               <select
@@ -205,7 +217,7 @@ class Shipping extends React.Component {
                   ))
                 }
               </select>
-            </label>{" "}
+            </label>{"  "}
             <label>{ "Zip Code: " }
               {
                 getZip ?
@@ -216,7 +228,16 @@ class Shipping extends React.Component {
                     required
                   ></input> : null
               }
-            </label>
+            </label>{"  "}
+            <label>{ "City Code: " }
+              <input 
+                type="citycode"
+                min="100000000000"
+                max="999999999999"
+                onChange={this.handleCityCodeInput}
+                required
+              ></input> 
+            </label>{"  "}
             <button>Get Rates</button>
           </form>
           <br></br>
