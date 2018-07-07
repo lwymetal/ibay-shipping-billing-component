@@ -1,7 +1,12 @@
 const fs = require('fs');
-const db = require('../config');
+// const db = require('../config');
 const stream = fs.createWriteStream(__dirname + '/rates.csv');
 const { seeds } = require('../data/seed');
+const exec = require('child_process').exec;
+
+var startScript = new Date();
+
+exec('mysql -u root < db/sql/schema.sql');
 
 var makeCode = function() {
   var num = Math.floor(Math.random() * 1000000000000);
@@ -22,18 +27,15 @@ var sprout = function() {
   return garden;
 }
 
-for (var i = 0; i < 104; i++) {  
-  console.log(i);
-  stream.write(sprout());
+var endScript; 
+
+var makeTable = async function() {
+  for (var i = 0; i < 104; i++) {  
+    console.log(i);
+    await stream.write(sprout());
+  }
+  endScript = new Date();
+  console.log(((endScript - startScript) / 1000) + ' seconds');
 }
-stream.end();
 
-var populate = `load data infile "../../../../Users/salamander/Github/sdc-capstone/mysql/db/data/rates.csv" into table rates fields terminated by ","`;
-
-db.query(populate, (err, results) => {
-  results ? console.log('populate done') : console.log(err);
-});
-
-db.query('create table cities select city_code, country from rates', (err, results) => {
-  results ? console.log('create cities done') : console.log(err);
-});
+makeTable();

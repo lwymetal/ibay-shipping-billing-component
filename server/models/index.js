@@ -4,34 +4,8 @@ const Models = {
 
   get: function(params, cb) {
     var rCode;
-    db.query(`select * from cities where country="${params.country}" order by rand() limit 1`, (err, results) => {
-      if (err) {
-        console.log(err);
-      } else {
-        rCode = results[0].city_code;
-        if (params.country === 'United States of America') {
-          console.log('zip code ', params.zipcode);
-          db.query(`select * from rates where city_code=${rCode}`, (err, response) => {
-            if (err) {
-              console.log(err);
-            } else {
-              +params.zipcode > 79999 ? (console.log('7'), response[0].basic_rate += 2, response[0].expedited_rate += 3, response[0].one_day_rate += 4) :
-                +params.zipcode > 49999 ? (console.log('4'), response[0].basic_rate += 1, response[0].expedited_rate += 2, response[0].one_day_rate += 3) :
-                  {};
-              console.log('RATES ', response[0].basic_rate, response[0].expedited_rate, response[0].one_day_rate);
-              cb(null, response[0]);
-            }
-          });
-        } else {
-          db.query(`select * from rates where city_code=${rCode}`, (err, results) => {
-            if (err) { 
-              console.log(err);
-            } else {
-              cb(null, results[0]);
-            }
-          });  
-        }
-      }
+    db.query(`select * from rates where city_code="${params.city_code}"`, (err, results) => {
+      err ? console.log(err) : cb(null, results[0]);
     })
   },
 

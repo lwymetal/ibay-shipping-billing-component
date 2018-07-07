@@ -4,7 +4,7 @@ var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   database: "ibay",
-  timeout: 6000000
+  timeout: 60000
 });
 
 connection.connect(function(err) {
