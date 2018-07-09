@@ -23,13 +23,15 @@ class Shipping extends React.Component {
       expeditedRate: '',
       oneDayRate: '',
       quantity: 1,
-      zipcode: ''
+      zipcode: '',
+      warn: false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleZipCodeInput = this.handleZipCodeInput.bind(this);
     this.handleCityCodeInput = this.handleCityCodeInput.bind(this);
+    this.handleDismiss = this.handleDismiss.bind(this);
     // not implemented yet the auction page isn't implenting this on the page:
     // this.handleChangeInQty = this.handleChangeInQty.bind(this);
   }
@@ -45,7 +47,7 @@ class Shipping extends React.Component {
       params: {
         country: this.state.defaultCountry,
         zipcode: '08561',
-        citycode: '629656974777'
+        citycode: '272277818824'
       }
     })
     .then(({ data }) => {
@@ -125,11 +127,15 @@ class Shipping extends React.Component {
         }
       })
       .then(({ data }) => {
-        this.setState({
-          basicRate: data.basic_rate + '.00',
-          expeditedRate: data.expedited_rate + '.00',
-          oneDayRate: data.one_day_rate + '.00'
-        });
+        if (!data.basic_rate) {
+          this.setState({warn: true, citycode: ''})
+        } else {
+          this.setState({
+            basicRate: data.basic_rate + '.00',
+            expeditedRate: data.expedited_rate + '.00',
+            oneDayRate: data.one_day_rate + '.00'
+          });
+        }
       })
       .catch(err => {
         console.log('Error fetching from DB', err);
@@ -148,6 +154,10 @@ class Shipping extends React.Component {
     this.setState({
       citycode: event.target.value
     });
+  }
+
+  handleDismiss() {
+    this.setState({ warn: false });
   }
 
   handleZipCodeInput(event) {
@@ -189,7 +199,7 @@ class Shipping extends React.Component {
     return(
       <div>
         <div className={styles['shipping-outside-border']}>
-          <h3>Shipping and Billing</h3>
+          <h3>Shipping and Billing *</h3>
           <div className={styles['shipping-conditions']}>
             <div>Item location: <b>Windsor, New Jersey, United States</b></div>
             <div>Shipping to: Worldwide</div>
@@ -203,7 +213,7 @@ class Shipping extends React.Component {
             <input
               type="qty"
               onChange={this.handleChangeInQty}
-              default="1" width="30px"
+              value={this.state.quantity} width="30px"
             ></input>{"  "}
             <label>
               { "Change Country: " }
@@ -218,29 +228,32 @@ class Shipping extends React.Component {
                 }
               </select>
             </label>{"  "}
-            <label>{ "Zip Code: " }
-              {
-                getZip ?
-                  <input
-                    type="number"
-                    max="99999"
-                    onChange={this.handleZipCodeInput}
-                    required
-                  ></input> : null
-              }
-            </label>{"  "}
+            {
+              getZip ?
+              (<label>Zip Code:   
+                <input
+                  type="number"
+                  max="99999"
+                  onChange={this.handleZipCodeInput}
+                  required
+                ></input></label> ) : null
+            }{"  "}
             <label>{ "City Code: " }
               <input 
                 type="citycode"
                 min="100000000000"
                 max="999999999999"
                 onChange={this.handleCityCodeInput}
+                value={this.state.citycode}
                 required
               ></input> 
             </label>{"  "}
             <button>Get Rates</button>
           </form>
-          <br></br>
+          { this.state.warn === true ? <div id="noCity">City code not found! <span className="closeBtn"
+            onClick={this.handleDismiss}>&#10006;</span></div> : null }
+        
+          <br />
           <div>
             <table className={styles.shipping}>
               <thead>

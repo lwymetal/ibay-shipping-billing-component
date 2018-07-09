@@ -13,7 +13,7 @@ const Controller = {
   }, 
 
   post: (req, res) => {
-    Models.post(req, res, (err, results) => {
+    Models.post(req, (err, results) => {   // req, res
       if (err) {
         console.log(err);
       } else {

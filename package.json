@@ -8,8 +8,10 @@
     "cors": "^2.8.4",
     "css-loader": "^0.28.11",
     "express": "^4.16.3",
+    "fs": "0.0.1-security",
     "helmet": "^3.12.1",
     "mysql": "^2.15.0",
+    "newrelic": "^4.2.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "style-loader": "^0.21.0"

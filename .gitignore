@@ -1,4 +1,3 @@
 node_modules
-credentials.json
-coverage
-ec2-key-pair.pem
+db/data/rates.csv
+test
