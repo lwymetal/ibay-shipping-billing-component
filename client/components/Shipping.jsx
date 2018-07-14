@@ -43,7 +43,7 @@ class Shipping extends React.Component {
   handleDefault() {
     axios({
       method: 'get',
-      url: 'http://localhost:3000/api/shipping',
+      url: 'http://ec2-54-183-215-102.us-west-1.compute.amazonaws.com:3000/api/shipping',
       params: {
         country: this.state.defaultCountry,
         zipcode: '08561',
@@ -65,7 +65,7 @@ class Shipping extends React.Component {
   postTest() {
     axios({
       method: 'post',
-      url: 'http://localhost:3000/api/add',
+      url: 'http://ec2-54-183-215-102.us-west-1.compute.amazonaws.com:3000/api/add',
       params: {
         country: "A test country 0",
         basic_rate: 5.00,
@@ -84,7 +84,7 @@ class Shipping extends React.Component {
   putTest() {
     axios({
       method: 'put',
-      url: 'http://localhost:3000/api/update',
+      url: 'http://ec2-54-183-215-102.us-west-1.compute.amazonaws.com:3000/api/update',
       params: {
         country: "A test country 2",
         basic_rate: 5.00
@@ -101,7 +101,7 @@ class Shipping extends React.Component {
   deleteTest() {
     axios({
       method: 'delete',
-      url: 'http://localhost:3000/api/delete',
+      url: 'http://ec2-54-183-215-102.us-west-1.compute.amazonaws.com:3000/api/delete',
       params: {
         country: "A test country 1"
       }
@@ -119,7 +119,7 @@ class Shipping extends React.Component {
     if (this.state.selectedCountry) {
       axios({
         method: 'get',
-        url: 'http://localhost:3000/api/shipping',
+        url: 'http://ec2-54-183-215-102.us-west-1.compute.amazonaws.com:3000/api/shipping',
         params: {
           country: this.state.selectedCountry,
           zipcode: this.state.zipcode,
@@ -144,6 +144,7 @@ class Shipping extends React.Component {
   }
 
   handleChange(event) {
+    selectedCountry !== 'United States of America' && this.setState({ zipcode: '' });
     this.setState({
       selectedCountry: event.target.value
     }, () => console.log(this.state.selectedCountry));
@@ -199,7 +200,7 @@ class Shipping extends React.Component {
     return(
       <div>
         <div className={styles['shipping-outside-border']}>
-          <h3>Shipping and Billing *</h3>
+          <h3>Shipping and Billing</h3>
           <div className={styles['shipping-conditions']}>
             <div>Item location: <b>Windsor, New Jersey, United States</b></div>
             <div>Shipping to: Worldwide</div>

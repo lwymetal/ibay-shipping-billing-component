@@ -4,12 +4,14 @@ const Models = {
 
   get: function(params, cb) {
     db.query(`select * from rates where city_code="${params.citycode}"`, (err, results) => {
-      if (params.country === 'United States of America') {
-        +params.zipcode > 79999 ? (results[0].basic_rate += 2, results[0].expedited_rate += 3, results[0].one_day_rate += 4) :
-          +params.zipcode > 49999 ? (results[0].basic_rate += 1, results[0].expedited_rate += 2, results[0].one_day_rate += 3) :
-            {};
+      if (!results[0]) { cb(err) } else {
+        if (params.country === 'United States of America') {
+          +params.zipcode > 79999 ? (results[0].basic_rate += 2, results[0].expedited_rate += 3, results[0].one_day_rate += 4) :
+            +params.zipcode > 49999 ? (results[0].basic_rate += 1, results[0].expedited_rate += 2, results[0].one_day_rate += 3) :
+              {};
+        }
       }
-      err ? console.log(err) : cb(null, results[0]);
+      cb(null, results[0]);
     })
   },
 

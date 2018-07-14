@@ -13,7 +13,7 @@ const PaymentDetails = () => (
       </thead>
       <tbody>
         <tr>
-          <td><img className={styles['paypal']} src="http://localhost:3000/3e94_bp.png"/></td>
+          <td><img className={styles['paypal']} src="http://ec2-54-183-215-102.us-west-1.compute.amazonaws.com:3000/3e94_bp.png"/></td>
           <td>BayPal Preferred</td>
         </tr>
       </tbody>
